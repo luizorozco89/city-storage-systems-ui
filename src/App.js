@@ -1,24 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import socketIOClient from "socket.io-client";
+import styled from 'styled-components';
+import Header from './components/Header';
+import OrdersContainer from './components/OrdersContainer';
+
+const ENDPOINT = "http://127.0.0.1:4000";
+
+const MyStyledComponent = styled.div`
+  box-sizing: border-box;
+`;
 
 function App() {
+  const [orders, setOrders] = useState({});
+  const [searchInputValue, setSearchInputValue] = useState('');
+
+  const mergeOrders = newOrders => {
+    const tempObj = { ...orders };
+
+    newOrders.forEach(order => {
+      tempObj[order.id] = order;
+    });
+  
+    return tempObj;
+  };
+
+  useEffect(() => {
+    console.log('executed??');
+    const socket = socketIOClient(ENDPOINT);
+    socket.on("order_event", data => {
+      const mergedOrders = mergeOrders(data);
+      setOrders(mergedOrders);
+    });
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <MyStyledComponent>
+      <Header />
+      <OrdersContainer orders={orders} />
+    </MyStyledComponent>
   );
 }
 

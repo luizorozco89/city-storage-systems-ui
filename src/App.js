@@ -12,7 +12,6 @@ const MyStyledComponent = styled.div`
 
 function App() {
   const [orders, setOrders] = useState({});
-  const [searchInputValue, setSearchInputValue] = useState('');
 
   const mergeOrders = newOrders => {
     const tempObj = { ...orders };
@@ -25,7 +24,6 @@ function App() {
   };
 
   useEffect(() => {
-    console.log('executed??');
     const socket = socketIOClient(ENDPOINT);
     socket.on("order_event", data => {
       const mergedOrders = mergeOrders(data);

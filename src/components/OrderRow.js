@@ -3,6 +3,11 @@ import styled from 'styled-components';
 
 const StyledOrderRow = styled.tr`
   border-bottom: 1px solid gray;
+
+  .price {
+    color: #4c00e6;
+    font-weight: 600;
+  }
 `;
 
 const turnToMoney = value => value / 100;
@@ -16,7 +21,7 @@ const OrderRow = ({ order }) => {
       <td>{destination}</td>
       <td>{item}</td>
       <td>{event_name}</td>
-      <td>{turnToMoney(price)}</td>
+      <td className="price">${turnToMoney(price)}</td>
     </StyledOrderRow>
   );
 }

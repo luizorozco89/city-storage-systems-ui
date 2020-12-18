@@ -9,9 +9,12 @@ const StyledOrdersTable = styled.table`
   border-spacing: 0px;
   border-collapse: collapse;
   text-align: left;
+  width: 70%;
+  margin: 0 auto;
+  margin-bottom: 200px;
 
   thead {
-    border-bottom: 1px solid gray;
+    border-bottom: 3px solid lightgray;
   }
 
   th, td {
@@ -32,7 +35,7 @@ const OrdersContainer = ({ orders }) => {
         </tr>
       </thead>
       <tbody>
-        {Object.values(orders).map((order, index) => <OrderRow key={order.id} order={order} />)}
+        {orders.map((order, index) => <OrderRow key={order.id} order={order} />)}
       </tbody>
     </StyledOrdersTable>
   );

@@ -10,11 +10,26 @@ const OrderRow = ({ order }) => {
 
   return(
     <StyledOrderRow className="order-row" data-testid={`order-row-${id}`}>
-      <td>{customer}</td>
-      <td>{destination}</td>
-      <td>{item}</td>
-      <td>{event_name}</td>
-      <td className="price">${turnToMoney(price)}</td>
+      <td>
+        <label>Customer:</label>
+        {customer}
+      </td>
+      <td>
+        <label>Destination:</label>
+        {destination}
+      </td>
+      <td>
+        <label>Dish:</label>
+        {item}
+      </td>
+      <td>
+        <label>Status:</label>
+        {event_name}
+      </td>
+      <td className="price">
+        <label>Price:</label>
+        ${turnToMoney(price)}
+      </td>
     </StyledOrderRow>
   );
 }

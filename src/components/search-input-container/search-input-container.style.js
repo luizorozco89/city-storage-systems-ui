@@ -1,34 +1,40 @@
 import styled from 'styled-components';
+import { paddings, margins, colors } from '../../utils/design-system';
 
 const StyledInputContainer = styled.div`
-  border-bottom: 3px solid lightgray;
-  margin: 0 auto;
-  width: 70%;
-  padding: 30px 0;
+  margin-bottom: ${margins.lg}px;
 
   #search-text, #matches-text {
     font-weight: 600;
-    margin-right: 12px;
-    padding: 10px 0;
-    font-size: 18px;
+    margin-right: ${margins.xs}px;
+    padding: ${paddings.xs}px 0;
+    font-size: 16px;
+    color: ${colors.gray01};
   }
 
   #matches-text {
     display: inline-block;
+    font-size: 16px;
     
     #matches-number {
-      color: #4c00e6;
+      color: ${colors.blue03};
     }
   }
   
   #search-input {
     width: 130px;
-    padding: 10px;
+    padding: ${paddings.xs}px;
     font-size: 16px;
     border-radius: 7px;
-    color: #29a329;
     font-weight: 600;
-    margin-right: 12px;
+    margin-right: ${margins.xs}px;
+    outline: none;
+    border: 1px solid ${colors.gray04};
+    color: ${colors.blue03};
+
+    &:focus {
+      border: 1px solid ${colors.blue02};
+    }
   }
 `;
 

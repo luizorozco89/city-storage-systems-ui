@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import socketIOClient from "socket.io-client";
 
-import Header from '../components/header/header';
 import SearchInputContainer from '../components/search-input-container/search-input-container';
 import OrdersContainer from '../components/orders-container';
-import StyledApp from './app.style';
+import { StyledApp, StyledHeader, StyledContent } from './app.style';
 import { WEBSOCKET_ENDPOINT } from '../constants';
 
 function App() {
@@ -57,9 +56,14 @@ function App() {
 
   return (
     <StyledApp data-testid="app-main-container">
-      <Header titleText={headerTitleText} />
-      <SearchInputContainer handleChange={handleChange} searchInputValue={searchInputValue} matchesQuantity={filteredOrders.length} />
-      <OrdersContainer orders={orders} />
+      <StyledHeader>
+        <h1>City Storage Systems</h1>
+      </StyledHeader>
+      <StyledContent>
+        <h2>Orders</h2>
+        <SearchInputContainer handleChange={handleChange} searchInputValue={searchInputValue} matchesQuantity={filteredOrders.length} />
+        <OrdersContainer orders={orders} />
+      </StyledContent>
     </StyledApp>
   );
 }

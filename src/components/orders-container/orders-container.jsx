@@ -1,26 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
-import OrderRow from './OrderRow';
 
-const StyledOrdersTable = styled.table`
-  width: 100%;
-  table-layout: fixed;
-  border-bottom: 1px solid rgb(212, 215, 220);
-  border-spacing: 0px;
-  border-collapse: collapse;
-  text-align: left;
-  width: 70%;
-  margin: 0 auto;
-  margin-bottom: 200px;
-
-  thead {
-    border-bottom: 3px solid lightgray;
-  }
-
-  th, td {
-    padding: 12px;
-  }
-`;
+import OrderRow from '../order-row';
+import StyledOrdersTable from './orders-container.style';
 
 const OrdersContainer = ({ orders }) => {
   return(
@@ -34,7 +15,7 @@ const OrdersContainer = ({ orders }) => {
           <th>Price</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody data-testid="orders-table-body">
         {orders.map((order, index) => <OrderRow key={order.id} order={order} />)}
       </tbody>
     </StyledOrdersTable>

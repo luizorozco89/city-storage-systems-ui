@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 
 const StyledHeader = styled.div`
@@ -11,12 +10,4 @@ const StyledHeader = styled.div`
   }
 `;
 
-const Header = () => {
-  return(
-    <StyledHeader>
-      <h1>Socket Client Demo</h1>
-    </StyledHeader>
-  );
-};
-
-export default Header;
+export default StyledHeader;

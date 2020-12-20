@@ -1,22 +1,21 @@
 import React, { useState, useEffect } from "react";
 import socketIOClient from "socket.io-client";
-import styled from 'styled-components';
-import Header from './components/Header';
-import SearchInputContainer from './components/SearchInputContainer';
-import OrdersContainer from './components/OrdersContainer';
 
-const ENDPOINT = "http://127.0.0.1:4000";
-
-const MyStyledComponent = styled.div`
-  box-sizing: border-box;
-`;
+import Header from '../components/header/header';
+import SearchInputContainer from '../components/search-input-container/search-input-container';
+import OrdersContainer from '../components/orders-container';
+import StyledApp from './app.style';
+import { WEBSOCKET_ENDPOINT } from '../constants';
 
 function App() {
   const [currentOrders, setCurrentOrders] = useState({});
   const [filteredOrders, setFilteredOrders] = useState([]);
   const [searchInputValue, setSearchInputValue] = useState("");
+  const headerTitleText = 'Socket Client Demo';
 
   const mergeOrders = newOrders => {
+    // console.log(currentOrders);
+    // console.log(newOrders);
     const vesselObj = { ...currentOrders };
     newOrders.forEach(order => {
       vesselObj[order.id] = order;
@@ -31,8 +30,11 @@ function App() {
     setFilteredOrders(filteredOrders);
   };
 
-  const handleChange = e => {
-    setSearchInputValue(e.target.value);
+  const handleChange = ({ target: { value } }) => {
+    if(value.match(/^\d*\.?\d*$/)) {
+      setSearchInputValue(value);
+    }
+    return;
   };
 
   useEffect(() => {
@@ -40,23 +42,25 @@ function App() {
   }, [searchInputValue]);
 
   useEffect(() => {
-    document.body.style = 'background: #f5f4f0;';
-    const socket = socketIOClient(ENDPOINT);
+    handleFilterByPrice();
+  }, [currentOrders]);
+
+  useEffect(() => {
+    const socket = socketIOClient(WEBSOCKET_ENDPOINT);
     socket.on("order_event", data => {
       const mergedOrders = mergeOrders(data);
       setCurrentOrders(mergedOrders);
-      handleFilterByPrice();
     });
   }, []);
 
   const orders = searchInputValue !== '' ? filteredOrders : Object.values(currentOrders);
 
   return (
-    <MyStyledComponent>
-      <Header />
+    <StyledApp data-testid="app-main-container">
+      <Header titleText={headerTitleText} />
       <SearchInputContainer handleChange={handleChange} searchInputValue={searchInputValue} matchesQuantity={filteredOrders.length} />
       <OrdersContainer orders={orders} />
-    </MyStyledComponent>
+    </StyledApp>
   );
 }
 

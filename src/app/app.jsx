@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from "react";
 import socketIOClient from "socket.io-client";
 
-import SearchInputContainer from '../components/search-input-container/search-input-container';
-import OrdersContainer from '../components/orders-container';
-import { StyledApp, StyledHeader, StyledContent } from './app.style';
-import { WEBSOCKET_ENDPOINT } from '../constants';
+import SearchInputContainer from "../components/search-input-container/search-input-container";
+import OrdersContainer from "../components/orders-container";
+import { StyledApp, StyledHeader, StyledContent } from "./app.style";
+import { DEV_WEBSOCKET_ENDPOINT, PROD_WEBSOCKET_ENDPOINT } from "../constants";
+import { filterByPrice } from "../utils";
 
 function App() {
   const [currentOrders, setCurrentOrders] = useState({});
   const [filteredOrders, setFilteredOrders] = useState([]);
-  const [searchInputValue, setSearchInputValue] = useState("");
-  const headerTitleText = 'Socket Client Demo';
+  const [searchInputValue, setSearchInputValue] = useState('');
+  const [filterBy, /*setFilterBy*/] = useState('price');
 
-  const mergeOrders = newOrders => {
-    // console.log(currentOrders);
-    // console.log(newOrders);
-    const vesselObj = { ...currentOrders };
+  const mergeOrders = (previousState, newOrders) => {
+    const vesselObj = { ...previousState };
     newOrders.forEach(order => {
       vesselObj[order.id] = order;
     });
@@ -23,32 +22,46 @@ function App() {
     return vesselObj;
   };
 
-  const handleFilterByPrice = () => {
-    const priceToFilter = parseInt((parseFloat(searchInputValue) * 100).toFixed(0));
-    const filteredOrders = Object.values(currentOrders).filter(order => order.price === priceToFilter);
+  const handleFilterBy = () => {
+    let filteredOrders = [];
+    switch(filterBy) {
+      case 'price': 
+        filteredOrders = filterByPrice(searchInputValue, currentOrders);
+        break;
+      default:
+        break;
+    }
     setFilteredOrders(filteredOrders);
   };
 
   const handleChange = ({ target: { value } }) => {
-    if(value.match(/^\d*\.?\d*$/)) {
+    if (filterBy === 'price') {
+      if(value.match(/^\d*\.?\d*$/)) {
+        setSearchInputValue(value);
+      }
+    } else {
       setSearchInputValue(value);
     }
-    return;
   };
 
   useEffect(() => {
-    handleFilterByPrice();
+    handleFilterBy();
   }, [searchInputValue]);
 
   useEffect(() => {
-    handleFilterByPrice();
+    handleFilterBy();
   }, [currentOrders]);
 
   useEffect(() => {
-    const socket = socketIOClient(WEBSOCKET_ENDPOINT);
-    socket.on("order_event", data => {
-      const mergedOrders = mergeOrders(data);
-      setCurrentOrders(mergedOrders);
+    const webSocketEndpoint = process.env.NODE_ENV === 'production' ?
+      PROD_WEBSOCKET_ENDPOINT :
+      DEV_WEBSOCKET_ENDPOINT;
+    const socket = socketIOClient(webSocketEndpoint);
+    socket.on('order_event', data => {
+      setCurrentOrders(previousState => {
+        const mergedOrders = mergeOrders(previousState, data);
+        return mergedOrders;
+      });
     });
   }, []);
 

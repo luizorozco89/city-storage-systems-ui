@@ -1,5 +1,5 @@
-import { render, screen } from '@testing-library/react';
-import OrdersContainer from './orders-container';
+import { render } from "@testing-library/react";
+import OrdersContainer from "./orders-container";
 
 describe('orders container', () => {
   const defaultProps = {

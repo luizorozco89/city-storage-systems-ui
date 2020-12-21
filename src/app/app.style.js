@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { paddings, margins, colors, breakpoints } from '../utils/design-system';
+import styled from "styled-components";
+import { paddings, margins, colors, breakpoints } from "../utils/design-system";
 
 export const StyledApp = styled.main`
   box-sizing: border-box;

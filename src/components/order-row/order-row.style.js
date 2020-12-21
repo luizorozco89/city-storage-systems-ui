@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { margins, colors, breakpoints } from '../../utils/design-system';
+import styled from "styled-components";
+import { margins, colors, breakpoints } from "../../utils/design-system";
 
 const StyledOrderRow = styled.tr`
   border-bottom: 1px solid ${colors.gray06};

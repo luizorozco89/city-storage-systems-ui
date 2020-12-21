@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { paddings, margins, colors } from '../../utils/design-system';
+import styled from "styled-components";
+import { paddings, margins, colors } from "../../utils/design-system";
 
 const StyledInputContainer = styled.div`
   margin-bottom: ${margins.lg}px;

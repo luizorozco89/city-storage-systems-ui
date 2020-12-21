@@ -1,5 +1,7 @@
-import { render, screen } from '@testing-library/react';
-import OrderRow from './order-row';
+import { render, screen } from "@testing-library/react";
+
+import OrderRow from "./order-row";
+import { centsToDollars } from "../../utils";
 
 describe('order row', () => {
   const order = {
@@ -11,8 +13,16 @@ describe('order row', () => {
     price: 2000
   };
 
+  const mount = (props) => {
+    render(<table>
+      <tbody>
+        <OrderRow order={order} {...props} />
+      </tbody>
+    </table>);
+  };
+
   it('renders row with five columns', () => {
-    render(<OrderRow order={order} />);
+    mount();
     const tableRow = screen.getByTestId('order-row-1');
     const columnsQuantity = tableRow.getElementsByTagName('td');
     expect(tableRow).toBeInTheDocument();
@@ -20,10 +30,9 @@ describe('order row', () => {
   });
   
   it('reders order values', () => {
-    const turnToMoney = value => value / 100;
-    const expectedPrice = turnToMoney(order.price);
+    const expectedPrice = centsToDollars(order.price);
 
-    render(<OrderRow order={order} />);
+    mount();
     expect(screen.getByText('Luis')).toBeInTheDocument();
     expect(screen.getByText('This is the destination')).toBeInTheDocument();
     expect(screen.getByText('Ramen')).toBeInTheDocument();
@@ -32,7 +41,7 @@ describe('order row', () => {
   });
 
   it('should work without order', () => {
-    render(<OrderRow />);
+    mount({ order: null });
     const tableRow = screen.getByTestId('order-row-undefined');
     const columnsQuantity = tableRow.getElementsByTagName('td');
     expect(tableRow).toBeInTheDocument();

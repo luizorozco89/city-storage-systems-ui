@@ -1,7 +1,7 @@
-import { render, screen, fireEvent, act } from '@testing-library/react';
+import { render, screen, fireEvent, act } from "@testing-library/react";
 import socketIOClient from "socket.io-client";
 
-import App from './app';
+import App from "./app";
 
 jest.mock('socket.io-client');
 
@@ -120,15 +120,13 @@ describe('app', () => {
     expect(matchesNumber.innerHTML).toEqual('0');
   });
 
-  xit('should merge current orders with new orders', () => {
+  it('should merge current orders with new orders', () => {
     let callback;
 
     socketIOClient.mockReturnValue({
       on: (event, cb) => {
         callback = cb;
-        act(() => {
-          callback(orders);
-        });
+        callback(orders);
       }
     });
     const { container } = render(<App />);

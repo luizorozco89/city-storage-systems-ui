@@ -1,5 +1,5 @@
-import { render, screen } from '@testing-library/react';
-import SearchInputContainer from './search-input-container';
+import { render, screen } from "@testing-library/react";
+import SearchInputContainer from "./search-input-container";
 
 describe('search input container', () => {
   const handleChange = () => {};

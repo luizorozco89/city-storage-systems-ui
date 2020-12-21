@@ -1,6 +1,7 @@
-import React from 'react';
+import React from "react";
+import { func, string, number } from "prop-types";
 
-import StyledInputContainer from './search-input-container.style';
+import StyledInputContainer from "./search-input-container.style";
 
 const SearchInputContainer = ({ handleChange, searchInputValue, matchesQuantity }) => {
   const showMatches = searchInputValue !== undefined && searchInputValue !== '';
@@ -26,5 +27,17 @@ const SearchInputContainer = ({ handleChange, searchInputValue, matchesQuantity 
     </StyledInputContainer>
   );
 };
+
+SearchInputContainer.propTypes = {
+  handleChange: func,
+  searchInputValue: string,
+  matchesQuantity: number
+};
+
+SearchInputContainer.defaultProps = {
+  handleChange: () => {},
+  searchInputValue: '',
+  matchesQuantity: 0
+}
 
 export default SearchInputContainer;

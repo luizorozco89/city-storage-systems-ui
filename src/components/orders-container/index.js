@@ -1,3 +1,3 @@
-import OrdersContainer from './orders-container';
+import OrdersContainer from "./orders-container";
 
 export default OrdersContainer;

@@ -1,34 +1,34 @@
-import React from 'react';
-import { shape, string, number } from 'prop-types';
+import React from "react";
+import { shape, string, number } from "prop-types";
 
-import StyledOrderRow from './order-row.style';
-
-const turnToMoney = value => value / 100;
+import StyledOrderRow from "./order-row.style";
+import { ORDER_KEY_LABEL_MAP } from "../../constants";
+import { centsToDollars } from "../../utils";
 
 const OrderRow = ({ order }) => {
-  const { id, customer, destination, item, event_name, price } = order;
+  const { id, customer, destination, item, event_name, price } = order || {};
 
   return(
     <StyledOrderRow className="order-row" data-testid={`order-row-${id}`}>
       <td>
-        <label>Customer:</label>
+        <label>{ORDER_KEY_LABEL_MAP['customer']}:</label>
         {customer}
       </td>
       <td>
-        <label>Destination:</label>
+        <label>{ORDER_KEY_LABEL_MAP['destination']}:</label>
         {destination}
       </td>
       <td>
-        <label>Dish:</label>
+        <label>{ORDER_KEY_LABEL_MAP['item']}:</label>
         {item}
       </td>
       <td>
-        <label>Status:</label>
+        <label>{ORDER_KEY_LABEL_MAP['event_name']}:</label>
         {event_name}
       </td>
       <td className="price">
-        <label>Price:</label>
-        ${turnToMoney(price)}
+        <label>{ORDER_KEY_LABEL_MAP['price']}:</label>
+        ${centsToDollars(price)}
       </td>
     </StyledOrderRow>
   );

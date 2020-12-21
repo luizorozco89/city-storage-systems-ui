@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { margins, paddings, colors, breakpoints } from '../../utils/design-system';
+import styled from "styled-components";
+import { margins, paddings, colors, breakpoints } from "../../utils/design-system";
 
 const StyledOrdersContainer = styled.div`
   background: ${colors.white};

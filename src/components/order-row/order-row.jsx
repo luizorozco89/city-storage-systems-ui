@@ -36,12 +36,12 @@ const OrderRow = ({ order }) => {
 
 OrderRow.propTypes = {
   order: shape({
-    id: string,
-    customer: string,
-    destination: string,
-    item: string,
-    event_name: string,
-    price: number
+    id: string.isRequired,
+    customer: string.isRequired,
+    destination: string.isRequired,
+    item: string.isRequired,
+    event_name: string.isRequired,
+    price: number.isRequired
   })
 };
 

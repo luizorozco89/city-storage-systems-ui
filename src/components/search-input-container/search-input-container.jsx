@@ -29,9 +29,9 @@ const SearchInputContainer = ({ handleChange, searchInputValue, matchesQuantity 
 };
 
 SearchInputContainer.propTypes = {
-  handleChange: func,
-  searchInputValue: string,
-  matchesQuantity: number
+  handleChange: func.isRequired,
+  searchInputValue: string.isRequired,
+  matchesQuantity: number.isRequired
 };
 
 SearchInputContainer.defaultProps = {

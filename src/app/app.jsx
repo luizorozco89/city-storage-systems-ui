@@ -46,11 +46,7 @@ function App() {
 
   useEffect(() => {
     handleFilterBy();
-  }, [searchInputValue]);
-
-  useEffect(() => {
-    handleFilterBy();
-  }, [currentOrders]);
+  }, [searchInputValue, currentOrders]);
 
   useEffect(() => {
     const webSocketEndpoint = process.env.NODE_ENV === 'production' ?
@@ -74,7 +70,11 @@ function App() {
       </StyledHeader>
       <StyledContent>
         <h2>Orders</h2>
-        <SearchInputContainer handleChange={handleChange} searchInputValue={searchInputValue} matchesQuantity={filteredOrders.length} />
+        <SearchInputContainer
+          handleChange={handleChange}
+          searchInputValue={searchInputValue}
+          matchesQuantity={filteredOrders.length}
+        />
         <OrdersContainer orders={orders} />
       </StyledContent>
     </StyledApp>

@@ -28,12 +28,12 @@ const OrdersContainer = ({ orders }) => {
 
 OrdersContainer.propTypes = {
   orders: arrayOf(shape({
-    id: string,
-    customer: string,
-    destination: string,
-    item: string,
-    event_name: string,
-    price: number
+    id: string.isRequired,
+    customer: string.isRequired,
+    destination: string.isRequired,
+    item: string.isRequired,
+    event_name: string.isRequired,
+    price: number.isRequired
   }))
 };
 
